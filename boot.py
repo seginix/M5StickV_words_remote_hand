@@ -193,8 +193,8 @@ def servo_hand(i):
 # Main
 ##############################################################################
 
-i2c = I2C(I2C.I2C0, freq=100000, scl=34, sda=35)
-s = servo.Servos(i2c)
+i2c_sv = I2C(I2C.I2C0, freq=100000, scl=34, sda=35)
+s = servo.Servos(i2c_sv)
 s.position(1,150)     # paa
 s.position(2,150-150) # paa
 s.position(3,150-150) # paa
@@ -219,15 +219,6 @@ s.position(2,150-0)     # good
 s.position(3,150-0)     # good
 s.position(4,150-0)     # good
 s.position(5,150-0)     # good
-
-
-
-
-
-
-
-
-
 
 
 lcd.rotation(0)
