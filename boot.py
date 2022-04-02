@@ -38,7 +38,7 @@ sample_rate   = 16000
 #####################################################################
 # If you increase the words array, the number of registered words
 # will also increase.
-words = ["open", "close", "V", "aloha", "good"]
+words = ["open", "close", "Vsign", "aloha", "good"]
 
 # If the word recognition rate is low, look at the values of
 # dtw_value and current_frame_len in the terminal and adjust them.
@@ -153,35 +153,35 @@ def servo_hand(i):
     i2c = I2C(I2C.I2C0, freq=100000, scl=34, sda=35)
     s = servo.Servos(i2c)
 
-    if i/2 == 0:
+    if i == 0:
         s.position(1,0)     # guu
         s.position(2,150-0) # guu
         s.position(3,150-0) # guu
         s.position(4,150-0) # guu
         s.position(5,150-0) # guu
 
-    elif i/2 == 1:
+    elif i == 1:
         s.position(1,150)     # paa
         s.position(2,150-150) # paa
         s.position(3,150-150) # paa
         s.position(4,150-150) # paa
         s.position(5,150-150) # paa
 
-    elif i/2 == 2:
+    elif i == 2:
         s.position(1,0)       # choki
         s.position(2,150-150) # choki
         s.position(3,150-150) # choki
         s.position(4,150-0)   # choki
         s.position(5,150-0)   # choki
 
-    elif i/2 == 3:
+    elif i == 3:
         s.position(1,150)       # aloha
         s.position(2,150-0)     # aloha
         s.position(3,150-0)     # aloha
         s.position(4,150-0)     # aloha
         s.position(5,150-150)   # aloha
 
-    elif i/2 == 4:
+    elif i == 4:
         s.position(1,150)       # good
         s.position(2,150-0)     # good
         s.position(3,150-0)     # good
@@ -273,38 +273,39 @@ while True:
                     print_lcd("Recognize",str3="Word: " + words[i], bgcolor=(0, 255, 255))
 
                     #servo_hand(i/2)
-                    uart_port.write("i = " + str(i/2) + "\n")   #iの値を確認
+                    print("i = " + str(i/2) + "\n")   #iの値を確認
 
-
-                    if i/2 == 0:
-                        s.position(1,0)     # guu
-                        s.position(2,150-0) # guu
-                        s.position(3,150-0) # guu
-                        s.position(4,150-0) # guu
-                        s.position(5,150-0) # guu
-
-                    elif i/2 == 1:
+                    if i == 0:
+                        #open
                         s.position(1,150)     # paa
                         s.position(2,150-150) # paa
                         s.position(3,150-150) # paa
                         s.position(4,150-150) # paa
                         s.position(5,150-150) # paa
 
-                    elif i/2 == 2:
+                    elif i == 1:
+                        #close
+                        s.position(1,0)     # guu
+                        s.position(2,150-0) # guu
+                        s.position(3,150-0) # guu
+                        s.position(4,150-0) # guu
+                        s.position(5,150-0) # guu
+
+                    elif i == 2:
                         s.position(1,0)       # choki
                         s.position(2,150-150) # choki
                         s.position(3,150-150) # choki
                         s.position(4,150-0)   # choki
                         s.position(5,150-0)   # choki
 
-                    elif i/2 == 3:
+                    elif i == 3:
                         s.position(1,150)       # aloha
                         s.position(2,150-0)     # aloha
                         s.position(3,150-0)     # aloha
                         s.position(4,150-0)     # aloha
                         s.position(5,150-150)   # aloha
 
-                    elif i/2 == 4:
+                    elif i == 4:
                         s.position(1,150)       # good
                         s.position(2,150-0)     # good
                         s.position(3,150-0)     # good
@@ -313,5 +314,4 @@ while True:
 
 
                     # data_packet = bytearray([0xFF, 0x05, 0xFF, i]) # header FF05FF
-                    uart_port.write(words[i] + "\n")
                     time.sleep_ms(200)
