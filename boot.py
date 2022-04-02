@@ -223,12 +223,12 @@ s.position(5,150-0)     # good
 
 lcd.rotation(0)
 
-if (BOARD_NAME == "M5STICKV"):
-    # set lcd backlight for M5StickV
-    i2c = I2C(I2C.I2C0, freq=400000, scl=28, sda=29)
-    i2c.writeto_mem(0x34, 0x91, b'\xa0')
-elif ((BOARD_NAME == "MAIXDUINO") or (BOARD_NAME == "M1DOCK")):
-    lcd.set_backlight(50)
+#if (BOARD_NAME == "M5STICKV"):
+#    # set lcd backlight for M5StickV
+#    i2c = I2C(I2C.I2C0, freq=400000, scl=28, sda=29)
+#    i2c.writeto_mem(0x34, 0x91, b'\xa0')
+#elif ((BOARD_NAME == "MAIXDUINO") or (BOARD_NAME == "M1DOCK")):
+#    lcd.set_backlight(50)
 
 lcd_w = lcd.width()
 lcd_h = lcd.height()
@@ -310,9 +310,6 @@ while True:
                         s.position(3,150-0)     # good
                         s.position(4,150-0)     # good
                         s.position(5,150-0)     # good
-
-
-
 
 
                     # data_packet = bytearray([0xFF, 0x05, 0xFF, i]) # header FF05FF
