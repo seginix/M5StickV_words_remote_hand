@@ -282,7 +282,7 @@ while True:
                     print_lcd("Recognize",str3="Word: " + words[i], bgcolor=(0, 255, 255))
 
                     #servo_hand(i/2)
-                    uart_port.write("i = " + str(i/2) + "\n")
+                    uart_port.write("i = " + str(i/2) + "\n")   #iの値を確認
 
 
                     if i/2 == 0:
