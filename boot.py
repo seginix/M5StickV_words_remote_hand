@@ -21,8 +21,6 @@ from machine import I2C,UART
 # サーボボードを動かすためのI2Cインポート
 from machine import I2C
 import servo
-# import pca9685
-
 
 
 if (BOARD_NAME == "M5STICKV"):
@@ -54,6 +52,7 @@ if (BOARD_NAME == "M5STICKV"):
     fm.register(34, fm.fpioa.UART2_TX, force=True)
     fm.register(35, fm.fpioa.UART2_RX, force=True)
     fm.register(board_info.BUTTON_A, fm.fpioa.GPIO1, force=True)
+    fm.register(board_info.BUTTON_B, fm.fpioa.GPIO2, force=True)
     button_a_label = "BtnA"
 elif ((BOARD_NAME == "MAIXDUINO") or (BOARD_NAME == "M1DOCK")):
 # GPIO Settings for Maixduino or M1Dock.
@@ -67,7 +66,11 @@ elif ((BOARD_NAME == "MAIXDUINO") or (BOARD_NAME == "M1DOCK")):
     button_a_label = "BtnBoot"
 
 uart_port = UART(UART.UART2, 115200, 8, None, 1, timeout=1000, read_buf_len=4096)
-button_a = GPIO(GPIO.GPIO1, GPIO.IN, GPIO.PULL_UP)
+button_a = GPIO(GPIO.GPIO1, GPIO.IN, GPIO.PULL_UP)  # LCD横のボタン
+button_b = GPIO(GPIO.GPIO2, GPIO.IN, GPIO.PULL_UP)  # LCD側面のボタン
+
+
+
 
 
 # data storage "/sd/" or "/flash/"
@@ -260,8 +263,12 @@ time.sleep_ms(1000)
 while True:
     time.sleep_ms(200)
     print_lcd("Please speak word!", button_a_label + ":Record Voice", serial_out=False)
-    if (button_a.value() == 0):
+    if (button_a.value() == 0): # Aボタンが押された場合
         record_voice()
+
+    if button_b.value() == 0:   # Bボタンが押された場合
+        machine.reset()
+
     if sr.Done == sr.recognize():
         res = sr.result()
         print("(Number,dtw_value,currnt_frame_len,matched_frame_len)=" + str(res))
